@@ -1,23 +1,42 @@
 <div class="container">
-    <div class="table-responsive">
-      <table class="table table-bordered f1-table-list">
-        <thead>
-          <tr>
-            <th scope="col">Race Name</th>
-            <th scope="col">Driver</th>
-            <th scope="col">Time</th>
-            <th scope="col">Laps</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let winner of winners$ | async">
-              <td [ngClass]="driverId === winner.driver.driverId ? 'f1-winner' : ''"><span>{{ winner.raceName }}</span></td>
-              <td [ngClass]="driverId === winner.driver.driverId ? 'f1-winner' : ''"><span class="f1-capitalize">{{ winner.driver | driverNamePipe }}</span></td>
-              <td [ngClass]="driverId === winner.driver.driverId ? 'f1-winner' : ''"><span>{{ winner.time }}</span></td>
-              <td [ngClass]="driverId === winner.driver.driverId ? 'f1-winner' : ''"><span>{{ winner.laps }} Laps</span></td>
-          </tr>
-        </tbody>
-      </table>
+    <div class="f1-back-button">
+      <a [routerLink]="['/home']">
+        <button type="button" class="btn f1-button-details">Back</button>
+      </a>
     </div>
+
+    <ng-container *ngIf="winners$.value.length > 0; then data else loading"></ng-container>
+
+    <ng-template #loading>
+        <div class="f1-spinner-container">
+          <div class="spinner-border text-primary" role="status">        
+              <span class="sr-only">Loading...</span>
+          </div>
+        </div>
+    </ng-template>
+
+    <ng-template #data>
+      <div class="table-responsive">
+        <table class="table table-bordered f1-table-list">
+          <thead>
+            <tr>
+              <th scope="col">Race Name</th>
+              <th scope="col">Driver</th>
+              <th scope="col">Time</th>
+              <th scope="col">Laps</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let winner of winners$ | async">
+                <td [ngClass]="driverId === winner.driver.driverId ? 'f1-winner' : ''"><span>{{ winner.raceName }}</span></td>
+                <td [ngClass]="driverId === winner.driver.driverId ? 'f1-winner' : ''"><span class="f1-capitalize">{{ winner.driver | driverNamePipe }}</span></td>
+                <td [ngClass]="driverId === winner.driver.driverId ? 'f1-winner' : ''"><span>{{ winner.time }}</span></td>
+                <td [ngClass]="driverId === winner.driver.driverId ? 'f1-winner' : ''"><span>{{ winner.laps }} Laps</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+  </ng-template>
+
   </div>
   
