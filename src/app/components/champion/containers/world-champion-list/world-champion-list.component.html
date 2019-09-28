@@ -1,7 +1,24 @@
-
-
-<ul class="list-group">
-    <li class="list-group-item" *ngFor="let champion of champions$ | async">
-        {{champion.driver| driverNamePipe}}
-    </li>
-</ul>
+<div class="container">
+  <div class="table-responsive">
+    <table class="table table-bordered f1-table-list">
+      <thead>
+        <tr>
+          <th scope="col"></th>
+          <th scope="col">Season</th>
+          <th scope="col">Driver</th>
+          <th scope="col">Points</th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let champion of champions$ | async">
+                <td><em class="fa fa-flag-checkered" pReorderableRowHandle></em></td>
+                <td><span class="f1-season-text">{{ champion.season }} </span></td>
+                <td><span class="f1-capitalize">{{ champion.driver | driverNamePipe }} </span> </td>
+                <td><span class="badge badge-light f1-driver-points">points {{ champion.points }}</span> </td>
+                <td><button type="button" class="btn f1-button-details">View Details</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
