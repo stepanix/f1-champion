@@ -1,0 +1,7 @@
+
+
+<ul class="list-group">
+    <li class="list-group-item" *ngFor="let champion of champions$ | async">
+        {{champion.driver| driverNamePipe}}
+    </li>
+</ul>
