@@ -16,7 +16,7 @@
                 <td><span class="f1-season-text">{{ champion.season }} </span></td>
                 <td><span class="f1-capitalize">{{ champion.driver | driverNamePipe }} </span> </td>
                 <td><span class="badge badge-light f1-driver-points">points {{ champion.points }}</span> </td>
-                <td><button type="button" class="btn f1-button-details">View Details</button></td>
+                <td><a [routerLink]="['/winners',champion.season, champion.driver.driverId]"><button type="button" class="btn f1-button-details">View Details</button></a></td>
         </tr>
       </tbody>
     </table>

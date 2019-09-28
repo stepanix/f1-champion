@@ -1,6 +1,6 @@
-import { Driver } from 'selenium-webdriver/chrome';
 import { Constructor } from './constructor.model';
-import { Time } from '@angular/common';
+import { Driver } from './driver.model';
+import { Time } from './time.model';
 
 
 export interface Result {

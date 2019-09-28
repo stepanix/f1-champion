@@ -21,7 +21,7 @@ export class WorldChampionFacade {
      *  is no risk of getting into memory leaks due to opn subscription.
      * */
     this.worldChampionService.get().subscribe(data => {
-      // Extract fields from array and use to rebuild a new desired array suitable for the presentation layer.
+      // Extract fields and use to rebuild a new desired array suitable for the presentation layer.
       data.MRData.StandingsTable.StandingsLists.forEach(item => {
         champions.push({
           season: item.season,

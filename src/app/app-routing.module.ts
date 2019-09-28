@@ -7,7 +7,8 @@ const routes: Routes = [
   {
     component: WorldChampionListComponent,
     path: 'home'
-  }
+  },
+  { path: 'winners/:season/:driverId', loadChildren: './components/winner/winner.module#WinnerModule' }
 ];
 
 @NgModule({

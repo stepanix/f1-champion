@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { WinnerApiService } from '../../services/apis/winner.api.service';
+import { ActivatedRoute } from '@angular/router';
+import { WinnerListFacade } from '../../facades/winner-list-facade/winner-list.facade';
+import { Winner } from '../../models/winner.model';
+import { Observable } from 'rxjs/internal/Observable';
 
 @Component({
   selector: 'app-winner-list',
@@ -8,10 +11,14 @@ import { WinnerApiService } from '../../services/apis/winner.api.service';
 })
 export class WinnerListComponent implements OnInit {
 
-  constructor(private winnerService: WinnerApiService) { }
+  winners$: Observable<Array<Winner>>;
+  driverId = '';
+
+  constructor(private route: ActivatedRoute, private winnerListFacade: WinnerListFacade) {}
 
   ngOnInit() {
-    
+    const season = this.route.snapshot.params.season;
+    this.driverId = this.route.snapshot.params.driverId;
+    this.winners$ = this.winnerListFacade.listWinners(season, this.driverId);
   }
-
 }

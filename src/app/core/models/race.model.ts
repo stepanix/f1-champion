@@ -1,4 +1,6 @@
 import { Circuit } from './circuit.model';
+import { Result } from './result.model';
+import { Time } from './time.model';
 
 export interface Race {
   season: string;
@@ -8,4 +10,5 @@ export interface Race {
   Circuit: Circuit;
   date: string;
   time: string;
+  Results: Array<Result>;
 }

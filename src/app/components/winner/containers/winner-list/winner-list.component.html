@@ -1,3 +1,23 @@
-<p>
-  winner-list works !
-</p>
+<div class="container">
+    <div class="table-responsive">
+      <table class="table table-bordered f1-table-list">
+        <thead>
+          <tr>
+            <th scope="col">Race Name</th>
+            <th scope="col">Driver</th>
+            <th scope="col">Time</th>
+            <th scope="col">Laps</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let winner of winners$ | async">
+              <td [ngClass]="driverId === winner.driver.driverId ? 'f1-winner' : ''"><span>{{ winner.raceName }}</span></td>
+              <td [ngClass]="driverId === winner.driver.driverId ? 'f1-winner' : ''"><span class="f1-capitalize">{{ winner.driver | driverNamePipe }}</span></td>
+              <td [ngClass]="driverId === winner.driver.driverId ? 'f1-winner' : ''"><span>{{ winner.time }}</span></td>
+              <td [ngClass]="driverId === winner.driver.driverId ? 'f1-winner' : ''"><span>{{ winner.laps }} Laps</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  
