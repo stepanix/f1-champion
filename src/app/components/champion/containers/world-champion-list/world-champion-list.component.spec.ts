@@ -2,10 +2,11 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { WorldChampionListComponent } from './world-champion-list.component';
 import { WorldChampionFacade } from '../../facades/world-champion-facade/world-champion.facade';
-import { DriverNamePipeModule } from 'src/app/shared/pipes/driver/driver-pipe.module';
 import { RouterTestingModule } from '@angular/router/testing';
 import { WorldChampionApiService } from '../../services/apis/world-champion.api.service';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { SharedModule } from 'src/app/shared/shared.module';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 describe('WorldChampionListComponent', () => {
   let component: WorldChampionListComponent;
@@ -13,9 +14,10 @@ describe('WorldChampionListComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
       declarations: [WorldChampionListComponent],
       providers: [WorldChampionFacade, WorldChampionApiService],
-      imports: [DriverNamePipeModule, RouterTestingModule, HttpClientTestingModule]
+      imports: [RouterTestingModule, SharedModule, HttpClientTestingModule]
     }).compileComponents();
   }));
 

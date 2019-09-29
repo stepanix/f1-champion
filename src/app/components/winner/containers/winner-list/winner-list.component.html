@@ -5,14 +5,16 @@
       </a>
     </div>
 
-    <ng-container *ngIf="winners$.value.length > 0; then data else loading"></ng-container>
+    <ng-container *ngIf="winners.length > 0; then data else loadingOrError"></ng-container>
 
-    <ng-template #loading>
-        <div class="f1-spinner-container">
-          <div class="spinner-border text-primary" role="status">        
-              <span class="sr-only">Loading...</span>
+    <ng-template #loadingOrError>
+        <div *ngIf="!errorObject" class="f1-spinner-container">
+            <app-loading-indicator></app-loading-indicator>
           </div>
-        </div>
+    
+          <div *ngIf="errorObject" class="f1-spinner-container">
+            <app-error-screen (retryClicked)='reloadService()'></app-error-screen>
+          </div>
     </ng-template>
 
     <ng-template #data>
@@ -27,7 +29,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let winner of winners$ | async">
+            <tr *ngFor="let winner of winners">
                 <td [ngClass]="driverId === winner.driver.driverId ? 'f1-winner' : ''"><span>{{ winner.raceName }}</span></td>
                 <td [ngClass]="driverId === winner.driver.driverId ? 'f1-winner' : ''"><span class="f1-capitalize">{{ winner.driver | driverNamePipe }}</span></td>
                 <td [ngClass]="driverId === winner.driver.driverId ? 'f1-winner' : ''"><span>{{ winner.time }}</span></td>

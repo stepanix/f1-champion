@@ -1,12 +1,14 @@
 <div class="container"> 
 
-  <ng-container *ngIf="champions$.value.length > 0; then data else loading"></ng-container>
+  <ng-container *ngIf="champions.length > 0; then data else loadingOrError"></ng-container>
 
-  <ng-template #loading>
-      <div class="f1-spinner-container">
-        <div class="spinner-border text-primary" role="status">        
-            <span class="sr-only">Loading...</span>
-        </div>
+  <ng-template #loadingOrError>
+      <div *ngIf="!errorObject" class="f1-spinner-container">
+        <app-loading-indicator></app-loading-indicator>
+      </div>
+
+      <div *ngIf="errorObject" class="f1-spinner-container">
+        <app-error-screen (retryClicked)='reloadService()'></app-error-screen>
       </div>
   </ng-template>
      
@@ -23,7 +25,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let champion of champions$ | async">
+            <tr *ngFor="let champion of champions">
                 <td><em class="fa fa-flag-checkered" pReorderableRowHandle></em></td>
                 <td><span class="f1-season-text">{{ champion.season }} </span></td>
                 <td><span class="f1-capitalize">{{ champion.driver | driverNamePipe }} </span> </td>
