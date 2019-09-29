@@ -18,9 +18,6 @@ describe('WinnerListComponent', () => {
   let service: WinnerApiService;
   let facade: WinnerListFacade;
 
-  // service = jasmine.createSpyObj('service', ['get']);
-  // service.get.and.returnValue(of(jsonResponseStub));
-
   const fakeRouter = {
     snapshot: {
       params: {
@@ -74,7 +71,6 @@ describe('WinnerListComponent', () => {
   it('should call listWinners and throw an error', () => {
     spyOn(service, 'get').and.returnValue(throwError('error'));
     component.listWinners();
-    console.log('errorTest', component.errorObject);
     expect(component.errorObject).toBeDefined();
   });
 });
