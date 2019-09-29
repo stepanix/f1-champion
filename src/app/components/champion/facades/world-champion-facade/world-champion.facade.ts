@@ -10,7 +10,7 @@ import { Champion } from '../../models/champion.model';
  * */
 @Injectable()
 export class WorldChampionFacade {
-  constructor(private worldChampionService: WorldChampionApiService) {}
+  constructor(public worldChampionService: WorldChampionApiService) {}
 
   listChampions(): Observable<Array<Champion>> {
     // declare local variable of array type champion

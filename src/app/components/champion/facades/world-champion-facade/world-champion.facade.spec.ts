@@ -1,46 +1,38 @@
 import { TestBed } from '@angular/core/testing';
 import { HttpClientModule } from '@angular/common/http';
-
 import { WorldChampionFacade } from './world-champion.facade';
 import { of } from 'rxjs/internal/observable/of';
-import { Champion } from '../../models/champion.model';
 import { WorldChampionApiService } from '../../services/apis/world-champion.api.service';
+import { jsonResponseStub } from 'src/app/shared/stubs/data/json-response.stub';
+import { championStub } from 'src/app/shared/stubs/data/champion.stub';
+
 
 describe('WorldChampionFacade', () => {
-  let facade: WorldChampionFacade;
+  let facade: any;
+  let service: any;
 
-  const MOCK_CHAMPIONS: Array<Champion> = [
-    {
-      season: '2005',
-      round: '1',
-      position: '1',
-      points: '10',
-      driver: {
-        driverId: '12345',
-        permanentNumber: '1',
-        code: '001',
-        url: 'url',
-        givenName: 'lastName',
-        familyName: 'firstName',
-        dateOfBirth: '01/01/2019',
-        nationality: 'earth'
-      }
-    }
-  ];
+  service = jasmine.createSpyObj('service', ['get']);
+  service.get.and.returnValue(of(jsonResponseStub));
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [WorldChampionFacade, WorldChampionApiService],
+      providers: [
+        { provide: WorldChampionApiService, useValue: service },
+        WorldChampionFacade
+      ],
       imports: [HttpClientModule]
     });
     facade = TestBed.get(WorldChampionFacade);
+    service = TestBed.get(WorldChampionApiService);
   });
 
   it('should call listChampions and return an Observable list of champions', () => {
-    spyOn(facade, 'listChampions').and.returnValue(of(MOCK_CHAMPIONS));
+    spyOn(facade, 'listChampions').and.callThrough();
     facade.listChampions().subscribe(res => {
-      expect(res).toEqual(MOCK_CHAMPIONS);
+      expect(res).toEqual(championStub);
     });
     expect(facade).toBeDefined();
+    expect(service).toBeDefined();
+    expect(facade.listChampions).toHaveBeenCalled();
   });
 });
