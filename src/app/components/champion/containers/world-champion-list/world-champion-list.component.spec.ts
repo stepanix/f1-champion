@@ -1,7 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { WorldChampionListComponent } from './world-champion-list.component';
-import { WorldChampionFacade } from '../../facades/world-champion-facade/world-champion.facade';
 import { RouterTestingModule } from '@angular/router/testing';
 import { WorldChampionApiService } from '../../services/apis/world-champion.api.service';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
@@ -10,18 +9,19 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { jsonResponseStub } from 'src/app/shared/stubs/data/json-response.stub';
 import { of } from 'rxjs/internal/observable/of';
 import { throwError } from 'rxjs/internal/observable/throwError';
+import { ChampionListPipe } from 'src/app/shared/pipes/champion/champion-list.pipe';
 
 describe('WorldChampionListComponent', () => {
   let component: WorldChampionListComponent;
   let fixture: ComponentFixture<WorldChampionListComponent>;
   let service: WorldChampionApiService;
-  let facade: WorldChampionFacade;
+  let pipe: ChampionListPipe;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
       declarations: [WorldChampionListComponent],
-      providers: [WorldChampionFacade, WorldChampionApiService],
+      providers: [ChampionListPipe, WorldChampionApiService],
       imports: [RouterTestingModule, SharedModule, HttpClientTestingModule]
     }).compileComponents();
   }));
@@ -29,7 +29,7 @@ describe('WorldChampionListComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(WorldChampionListComponent);
     service = TestBed.get(WorldChampionApiService);
-    facade = TestBed.get(WorldChampionFacade);
+    pipe = TestBed.get(ChampionListPipe);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
@@ -52,9 +52,9 @@ describe('WorldChampionListComponent', () => {
 
   it('should call listChampions and invoke parseWinnersList when successful', () => {
     spyOn(service, 'get').and.returnValue(of(jsonResponseStub));
-    spyOn(facade, 'parseChampionList').and.callThrough();
+    spyOn(pipe, 'transform').and.callThrough();
     component.listChampions();
-    expect(facade.parseChampionList).toHaveBeenCalled();
+    expect(component.champions.length).toBeGreaterThan(0);
     expect(service.get).toHaveBeenCalled();
   });
 

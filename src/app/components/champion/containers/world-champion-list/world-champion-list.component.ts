@@ -1,8 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { WorldChampionFacade } from '../../facades/world-champion-facade/world-champion.facade';
 import { Champion } from '../../models/champion.model';
 import { WorldChampionApiService } from '../../services/apis/world-champion.api.service';
 import { Subscription } from 'rxjs/internal/Subscription';
+import { ChampionListPipe } from 'src/app/shared/pipes/champion/champion-list.pipe';
 
 @Component({
   selector: 'app-world-champion-list',
@@ -15,8 +15,7 @@ export class WorldChampionListComponent implements OnInit, OnDestroy {
   errorObject: any;
   private subscriptions = new Subscription();
 
-  constructor(private worldChampionService: WorldChampionApiService,
-              private worldChampionFacade: WorldChampionFacade) { }
+  constructor(private championListPipe: ChampionListPipe, private worldChampionService: WorldChampionApiService) { }
 
   ngOnInit() {
     this.listChampions();
@@ -30,7 +29,7 @@ export class WorldChampionListComponent implements OnInit, OnDestroy {
   listChampions() {
     this.initVariables();
     const championServiceSubscription =  this.worldChampionService.get().subscribe(res => {
-      this.champions = this.worldChampionFacade.parseChampionList(res);
+      this.champions = this.championListPipe.transform(res);
     }, err => {
       this.errorObject = err;
     });

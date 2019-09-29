@@ -1,9 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { WinnerListFacade } from '../../facades/winner-list-facade/winner-list.facade';
 import { Winner } from '../../models/winner.model';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { WinnerApiService } from '../../services/apis/winner.api.service';
+import { WinnerListPipe } from 'src/app/shared/pipes/winner/winner-list.pipe';
 
 @Component({
   selector: 'app-winner-list',
@@ -11,14 +11,17 @@ import { WinnerApiService } from '../../services/apis/winner.api.service';
   styleUrls: ['./winner-list.component.scss']
 })
 export class WinnerListComponent implements OnInit, OnDestroy {
-
   errorObject: any;
   private subscriptions = new Subscription();
   winners: Array<Winner>;
   driverId = '';
   season = '';
 
-  constructor(private route: ActivatedRoute, private winnerService: WinnerApiService, private winnerListFacade: WinnerListFacade) {}
+  constructor(
+    private route: ActivatedRoute,
+    private winnerService: WinnerApiService,
+    private winnerListPipe: WinnerListPipe
+  ) {}
 
   ngOnInit() {
     this.season = this.route.snapshot.params.season;
@@ -33,11 +36,16 @@ export class WinnerListComponent implements OnInit, OnDestroy {
 
   listWinners() {
     this.initVariables();
-    const winnerServiceSubscription =  this.winnerService.get(this.season).subscribe(res => {
-      this.winners = this.winnerListFacade.parseWinnersList(res);
-    }, err => {
-      this.errorObject = err;
-    });
+    const winnerServiceSubscription = this.winnerService
+      .get(this.season)
+      .subscribe(
+        res => {
+          this.winners = this.winnerListPipe.transform(res);
+        },
+        err => {
+          this.errorObject = err;
+        }
+      );
     this.subscriptions.add(winnerServiceSubscription);
   }
 
@@ -48,5 +56,4 @@ export class WinnerListComponent implements OnInit, OnDestroy {
   reloadService() {
     this.listWinners();
   }
-
 }
