@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { WinnerListComponent } from './containers/winner-list/winner-list.component';
+import { WinnerListComponent } from './views/winner-list/winner-list.component';
 
 
 const routes: Routes = [
