@@ -15,8 +15,10 @@ export class WorldChampionListComponent implements OnInit, OnDestroy {
   errorObject: any;
   private subscriptions = new Subscription();
 
+  // Inject pipe and service as component dependency into constructor
   constructor(private championListPipe: ChampionListPipe, private worldChampionService: WorldChampionApiService) { }
 
+  // invoke service
   ngOnInit() {
     this.listChampions();
   }
@@ -28,18 +30,27 @@ export class WorldChampionListComponent implements OnInit, OnDestroy {
 
   listChampions() {
     this.initVariables();
-    const championServiceSubscription =  this.worldChampionService.get().subscribe(res => {
+    // Declare and assign subcription to a subscription object. This helps to manage multiple subscriptions
+    const championServiceSubscription = this.worldChampionService.get().subscribe(res => {
       this.champions = this.championListPipe.transform(res);
     }, err => {
       this.errorObject = err;
     });
+    // Add subscription to subscription object
     this.subscriptions.add(championServiceSubscription);
   }
 
+  /* *
+   * unsubscribe to prevent memory leaks although http subscriptions
+   * also unsubscribe after a restful service transaction has completed.
+   */
   ngOnDestroy() {
     this.subscriptions.unsubscribe();
   }
 
+  /* *
+  * This method is used to invoke the service again if call fails.
+  */
   reloadService() {
     this.listChampions();
   }

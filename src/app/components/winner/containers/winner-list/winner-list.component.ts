@@ -17,12 +17,14 @@ export class WinnerListComponent implements OnInit, OnDestroy {
   driverId = '';
   season = '';
 
+  // Inject pipe and service as component dependency into constructor
   constructor(
     private route: ActivatedRoute,
     private winnerService: WinnerApiService,
     private winnerListPipe: WinnerListPipe
-  ) {}
+  ) { }
 
+  // invoke service
   ngOnInit() {
     this.season = this.route.snapshot.params.season;
     this.driverId = this.route.snapshot.params.driverId;
@@ -36,6 +38,7 @@ export class WinnerListComponent implements OnInit, OnDestroy {
 
   listWinners() {
     this.initVariables();
+    // Declare and assign subcription to a subscription object. This helps to manage multiple subscriptions
     const winnerServiceSubscription = this.winnerService
       .get(this.season)
       .subscribe(
@@ -46,13 +49,21 @@ export class WinnerListComponent implements OnInit, OnDestroy {
           this.errorObject = err;
         }
       );
+    // Add subscription to subscription object
     this.subscriptions.add(winnerServiceSubscription);
   }
 
+  /* *
+   * unsubscribe to prevent memory leaks although http subscriptions
+   * also unsubscribe after a restful service transaction has completed.
+   */
   ngOnDestroy() {
     this.subscriptions.unsubscribe();
   }
 
+  /* *
+ * This method is used to invoke the service again if call fails.
+ */
   reloadService() {
     this.listWinners();
   }
