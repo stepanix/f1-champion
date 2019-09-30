@@ -3,21 +3,20 @@ import {
   HttpClientTestingModule,
   HttpTestingController
 } from '@angular/common/http/testing';
-import { WorldChampionApiService } from './world-champion.api.service';
+import { WorldChampionListApiService } from './world-champion-list.api.service';
 import { environment } from 'src/environments/environment';
-import { JsonResponse } from 'src/app/core/models/json-response.model';
 import { jsonResponseStub } from 'src/app/shared/stubs/data/json-response.stub';
 
 describe('WorldChampionApiService', () => {
-  let service: WorldChampionApiService;
+  let service: WorldChampionListApiService;
   let httpMock: HttpTestingController;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      providers: [WorldChampionApiService],
+      providers: [WorldChampionListApiService],
       imports: [HttpClientTestingModule]
     });
-    service = getTestBed().get(WorldChampionApiService);
+    service = getTestBed().get(WorldChampionListApiService);
     httpMock = getTestBed().get(HttpTestingController);
   }));
 

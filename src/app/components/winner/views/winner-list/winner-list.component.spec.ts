@@ -3,20 +3,20 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { WinnerListComponent } from './winner-list.component';
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { WinnerApiService } from '../../services/apis/winner.api.service';
+import { WinnerListApiService } from '../../services/apis/winner-list.api.service';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { of } from 'rxjs/internal/observable/of';
 import { jsonResponseStub } from 'src/app/shared/stubs/data/json-response.stub';
 import { throwError } from 'rxjs/internal/observable/throwError';
-import { WinnerListPipe } from 'src/app/shared/pipes/winner/winner-list.pipe';
+import { WinnerListFacade } from '../../facades/winner-list/winner-list.facade';
 
 describe('WinnerListComponent', () => {
   let component: WinnerListComponent;
   let fixture: ComponentFixture<WinnerListComponent>;
-  let service: WinnerApiService;
-  let pipe: WinnerListPipe;
+  let service: WinnerListApiService;
+  let facade: WinnerListFacade;
 
   const fakeRouter = {
     snapshot: {
@@ -32,14 +32,14 @@ describe('WinnerListComponent', () => {
       declarations: [WinnerListComponent],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
       imports: [SharedModule, RouterTestingModule, HttpClientTestingModule],
-      providers: [WinnerListPipe,  WinnerApiService, { provide: ActivatedRoute, useValue: fakeRouter }]
+      providers: [WinnerListFacade,  WinnerListApiService, { provide: ActivatedRoute, useValue: fakeRouter }]
     }).compileComponents();
   }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(WinnerListComponent);
-    service = TestBed.get(WinnerApiService);
-    pipe = TestBed.get(WinnerListPipe);
+    service = TestBed.get(WinnerListApiService);
+    facade = TestBed.get(WinnerListFacade);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
@@ -62,7 +62,7 @@ describe('WinnerListComponent', () => {
 
   it('should call listWinners and invoke parseWinnersList when successful', () => {
     spyOn(service, 'get').and.returnValue(of(jsonResponseStub));
-    spyOn(pipe, 'transform').and.callThrough();
+    spyOn(facade, 'parse').and.callThrough();
     component.listWinners();
     expect(component.winners.length).toBeGreaterThan(0);
     expect(service.get).toHaveBeenCalled();

@@ -2,34 +2,34 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { WorldChampionListComponent } from './world-champion-list.component';
 import { RouterTestingModule } from '@angular/router/testing';
-import { WorldChampionApiService } from '../../services/apis/world-champion.api.service';
+import { WorldChampionListApiService } from '../../services/apis/world-champion-list.api.service';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { jsonResponseStub } from 'src/app/shared/stubs/data/json-response.stub';
 import { of } from 'rxjs/internal/observable/of';
 import { throwError } from 'rxjs/internal/observable/throwError';
-import { ChampionListPipe } from 'src/app/shared/pipes/champion/champion-list.pipe';
+import { WorldChampionListFacade } from '../../facades/world-champion-list/world-champion-list.facade';
 
 describe('WorldChampionListComponent', () => {
   let component: WorldChampionListComponent;
   let fixture: ComponentFixture<WorldChampionListComponent>;
-  let service: WorldChampionApiService;
-  let pipe: ChampionListPipe;
+  let service: WorldChampionListApiService;
+  let facade: WorldChampionListFacade;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
       declarations: [WorldChampionListComponent],
-      providers: [ChampionListPipe, WorldChampionApiService],
+      providers: [WorldChampionListFacade, WorldChampionListApiService],
       imports: [RouterTestingModule, SharedModule, HttpClientTestingModule]
     }).compileComponents();
   }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(WorldChampionListComponent);
-    service = TestBed.get(WorldChampionApiService);
-    pipe = TestBed.get(ChampionListPipe);
+    service = TestBed.get(WorldChampionListApiService);
+    facade = TestBed.get(WorldChampionListFacade);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
@@ -52,7 +52,7 @@ describe('WorldChampionListComponent', () => {
 
   it('should call listChampions and invoke parseWinnersList when successful', () => {
     spyOn(service, 'get').and.returnValue(of(jsonResponseStub));
-    spyOn(pipe, 'transform').and.callThrough();
+    spyOn(facade, 'parse').and.callThrough();
     component.listChampions();
     expect(component.champions.length).toBeGreaterThan(0);
     expect(service.get).toHaveBeenCalled();

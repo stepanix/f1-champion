@@ -4,20 +4,19 @@ import {
   HttpTestingController
 } from '@angular/common/http/testing';
 import { environment } from 'src/environments/environment';
-import { JsonResponse } from 'src/app/core/models/json-response.model';
-import { WinnerApiService } from './winner.api.service';
+import { WinnerListApiService } from './winner-list.api.service';
 import { jsonResponseStub } from 'src/app/shared/stubs/data/json-response.stub';
 
 describe('WinnerApiService', () => {
-  let service: WinnerApiService;
+  let service: WinnerListApiService;
   let httpMock: HttpTestingController;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      providers: [WinnerApiService],
+      providers: [WinnerListApiService],
       imports: [HttpClientTestingModule]
     });
-    service = getTestBed().get(WinnerApiService);
+    service = getTestBed().get(WinnerListApiService);
     httpMock = getTestBed().get(HttpTestingController);
   }));
 

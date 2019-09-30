@@ -29,6 +29,28 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
 
-## Architecture
+# Architecture
 
-The architectural pattern where each feature is encapsulated in an organized folder structure is the main driver of the design paradigm used in this project. This makes scalability and maintainability of the application easier.
+The architectural pattern where each feature is encapsulated in an organized folder structure is the main driver of the design paradigm used in this project. This makes scalability and maintainability of the application easier. Please find below
+an explanation of the folder structure. E.g if an abstraction layer needs to be added to this project it can easily be done within each feature.
+
+## Components
+`components`: This is where all `feature components` e.g `champion` are found.
+each `feature component` e.g `champion` has a folder structure that represents the layer.
+
+`models`: this is where all models unique to a feature are created.
+`services`: this is where all services including apis & non-api services unique to a feature are created. The api services are in the folder called `apis`
+`views`: this is where the all presentation layers with respect to a feature are created.
+`facades` this layer is used to abstract business logic with respect to each feature and should be available to the view/presentation layer of the feature.
+
+## Core
+This layer is holds some of the main components, services and models that might be used through the entire application. e.g of such are `interceptors`, `JsonResponse models`, `feature-toggles`, `redux (reducers, actions, effects)` for decoupling application state from the presentation layer. They have no dependency on any feature module.
+
+## Shared
+This layer is used for reusable `components`, `pipes`, `directives`, `etc` within the application and they also have no dependency on any feature module e.g, `loading-screen`, `error-screen`.
+
+In addition to the points above, `loading on demand` or `lazy loading` has also been implemented to ensure optimization, performance and speed in download time when a production artifact is created.
+
+
+
+

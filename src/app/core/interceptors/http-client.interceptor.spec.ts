@@ -1,17 +1,16 @@
-import { TestBed, tick, fakeAsync } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 import {
   HttpClientTestingModule,
   HttpTestingController,
 } from '@angular/common/http/testing';
 import { HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
-import { WorldChampionApiService } from 'src/app/components/champion/services/apis/world-champion.api.service';
+import { WorldChampionListApiService } from 'src/app/components/champion/services/apis/world-champion-list.api.service';
 import { HttpClientInterceptor } from './http-client.interceptor';
 import { environment } from 'src/environments/environment';
-import { throwError } from 'rxjs/internal/observable/throwError';
-import { jsonResponseStub } from 'src/app/shared/stubs/data/json-response.stub';
+
 
 describe(`HttpClientInterceptor`, () => {
-  let service: WorldChampionApiService;
+  let service: WorldChampionListApiService;
   let httpMock: HttpTestingController;
   let httpClient: HttpClient;
 
@@ -19,7 +18,7 @@ describe(`HttpClientInterceptor`, () => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
       providers: [
-        WorldChampionApiService,
+        WorldChampionListApiService,
         {
           provide: HTTP_INTERCEPTORS,
           useClass: HttpClientInterceptor,
@@ -28,7 +27,7 @@ describe(`HttpClientInterceptor`, () => {
       ],
     });
 
-    service = TestBed.get(WorldChampionApiService);
+    service = TestBed.get(WorldChampionListApiService);
     httpMock = TestBed.get(HttpTestingController);
     httpClient = TestBed.get(HttpClient);
   });

@@ -2,8 +2,8 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Winner } from '../../models/winner.model';
 import { Subscription } from 'rxjs/internal/Subscription';
-import { WinnerApiService } from '../../services/apis/winner.api.service';
-import { WinnerListPipe } from 'src/app/shared/pipes/winner/winner-list.pipe';
+import { WinnerListApiService } from '../../services/apis/winner-list.api.service';
+import { WinnerListFacade } from '../../facades/winner-list/winner-list.facade';
 
 @Component({
   selector: 'app-winner-list',
@@ -20,8 +20,8 @@ export class WinnerListComponent implements OnInit, OnDestroy {
   // Inject pipe and service as component dependency into constructor
   constructor(
     private route: ActivatedRoute,
-    private winnerService: WinnerApiService,
-    private winnerListPipe: WinnerListPipe
+    private winnerListService: WinnerListApiService,
+    private winnerListFacade: WinnerListFacade
   ) { }
 
   // invoke service
@@ -39,11 +39,11 @@ export class WinnerListComponent implements OnInit, OnDestroy {
   listWinners() {
     this.initVariables();
     // Declare and assign subcription to a subscription object. This helps to manage multiple subscriptions
-    const winnerServiceSubscription = this.winnerService
+    const winnerServiceSubscription = this.winnerListService
       .get(this.season)
       .subscribe(
         res => {
-          this.winners = this.winnerListPipe.transform(res);
+          this.winners = this.winnerListFacade.parse(res);
         },
         err => {
           this.errorObject = err;

@@ -1,15 +1,15 @@
-import { Pipe, PipeTransform } from '@angular/core';
-import { Champion } from 'src/app/components/champion/models/champion.model';
+import { Injectable } from '@angular/core';
 import { JsonResponse } from 'src/app/core/models/json-response.model';
+import { Champion } from '../../models/champion.model';
 
-@Pipe({
-  name: 'championListPipe'
-})
-export class ChampionListPipe implements PipeTransform {
+@Injectable()
+export class WorldChampionListFacade {
 
-  transform(jsonResponse: JsonResponse): Array<Champion> {
+  constructor() { }
+
+  parse(jsonResponse: JsonResponse): Array<Champion> {
     const champions: Array<Champion> = [];
-    jsonResponse.MRData.StandingsTable.StandingsLists.map(item => {
+    jsonResponse.MRData.StandingsTable.StandingsLists.forEach(item => {
       champions.push({
         season: item.season,
         round: item.round,
@@ -20,5 +20,4 @@ export class ChampionListPipe implements PipeTransform {
     });
     return champions;
   }
-
 }

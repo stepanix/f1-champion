@@ -1,8 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Champion } from '../../models/champion.model';
-import { WorldChampionApiService } from '../../services/apis/world-champion.api.service';
+import { WorldChampionListApiService } from '../../services/apis/world-champion-list.api.service';
 import { Subscription } from 'rxjs/internal/Subscription';
-import { ChampionListPipe } from 'src/app/shared/pipes/champion/champion-list.pipe';
+import { WorldChampionListFacade } from '../../facades/world-champion-list/world-champion-list.facade';
 
 @Component({
   selector: 'app-world-champion-list',
@@ -15,8 +15,8 @@ export class WorldChampionListComponent implements OnInit, OnDestroy {
   errorObject: any;
   private subscriptions = new Subscription();
 
-  // Inject pipe and service as component dependency into constructor
-  constructor(private championListPipe: ChampionListPipe, private worldChampionService: WorldChampionApiService) { }
+  // Inject facade and service as component dependency into constructor
+  constructor(private worldChampionListFacade: WorldChampionListFacade, private worldChampionService: WorldChampionListApiService) { }
 
   // invoke service
   ngOnInit() {
@@ -32,7 +32,7 @@ export class WorldChampionListComponent implements OnInit, OnDestroy {
     this.initVariables();
     // Declare and assign subcription to a subscription object. This helps to manage multiple subscriptions
     const championServiceSubscription = this.worldChampionService.get().subscribe(res => {
-      this.champions = this.championListPipe.transform(res);
+      this.champions = this.worldChampionListFacade.parse(res);
     }, err => {
       this.errorObject = err;
     });

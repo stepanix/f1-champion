@@ -1,13 +1,13 @@
-import { Pipe, PipeTransform } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { JsonResponse } from 'src/app/core/models/json-response.model';
-import { Winner } from 'src/app/components/winner/models/winner.model';
+import { Winner } from '../../models/winner.model';
 
-@Pipe({
-  name: 'winnerListPipe'
-})
-export class WinnerListPipe implements PipeTransform {
+@Injectable()
+export class WinnerListFacade {
 
-  transform(jsonResponse: JsonResponse): Array<Winner> {
+  constructor() { }
+
+  parse(jsonResponse: JsonResponse): Array<Winner> {
     const winners: Array<Winner> = [];
     jsonResponse.MRData.RaceTable.Races.forEach(item => {
       winners.push({
@@ -20,5 +20,4 @@ export class WinnerListPipe implements PipeTransform {
     });
     return winners;
   }
-
 }

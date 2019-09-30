@@ -5,18 +5,27 @@
       </a>
     </div>
 
-    <ng-container *ngIf="winners.length > 0; then data else loadingOrError"></ng-container>
+    <!-- Dom elements per screen are wrapped in templates this promotes a clear separation of screens and also easy
+       to do conditional rendering
+    -->
 
+    <!--ng-container directive is used here to conditionally render the screens -->
+    <ng-container  *ngIf="winners.length > 0; then data else loadingOrError"></ng-container>
+
+    <!-- Render this screen after getting data successfully from the service -->
     <ng-template #loadingOrError>
-        <div *ngIf="!errorObject" class="f1-spinner-container">
+          <div *ngIf="!errorObject" class="f1-spinner-container">
+            <!-- Resusable loading indicator screen -->
             <app-loading-indicator></app-loading-indicator>
           </div>
-    
+
           <div *ngIf="errorObject" class="f1-spinner-container">
+            <!-- Resusable error screen -->
             <app-error-screen (retryClicked)='reloadService()'></app-error-screen>
           </div>
     </ng-template>
 
+    <!-- Render this screen in this template after getting data successfully from the service -->
     <ng-template #data>
       <div class="table-responsive">
         <table class="table table-bordered f1-table-list">
@@ -41,4 +50,3 @@
   </ng-template>
 
   </div>
-  

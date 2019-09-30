@@ -7,7 +7,7 @@ import { JsonResponse } from 'src/app/core/models/json-response.model';
 
 
 @Injectable()
-export class WinnerApiService {
+export class WinnerListApiService {
   constructor(private httpClient: HttpClient) {}
 
   get(season: string): Observable<JsonResponse> {

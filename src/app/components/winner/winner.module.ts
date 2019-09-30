@@ -3,13 +3,13 @@ import { CommonModule } from '@angular/common';
 
 import { WinnerRoutingModule } from './winner-routing.module';
 import { WinnerListComponent } from './views/winner-list/winner-list.component';
-import { WinnerApiService } from './services/apis/winner.api.service';
+import { WinnerListApiService } from './services/apis/winner-list.api.service';
 import { SharedModule } from 'src/app/shared/shared.module';
-import { WinnerListPipe } from 'src/app/shared/pipes/winner/winner-list.pipe';
+import { WinnerListFacade } from './facades/winner-list/winner-list.facade';
 
 @NgModule({
   declarations: [WinnerListComponent],
-  providers: [WinnerApiService, WinnerListPipe],
+  providers: [WinnerListApiService, WinnerListFacade],
   imports: [CommonModule, SharedModule, WinnerRoutingModule],
   exports: [WinnerListComponent]
 })

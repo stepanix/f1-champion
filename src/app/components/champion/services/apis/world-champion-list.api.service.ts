@@ -6,7 +6,7 @@ import { environment } from 'src/environments/environment';
 import { JsonResponse } from 'src/app/core/models/json-response.model';
 
 @Injectable()
-export class WorldChampionApiService {
+export class WorldChampionListApiService {
   constructor(private httpClient: HttpClient) {}
 
   get(): Observable<JsonResponse> {
