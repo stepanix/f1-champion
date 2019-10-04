@@ -1,12 +1,10 @@
 .f1-table {
   background-color: $white-text-color;
-  overflow-x: hidden;
-  overflow-x: hidden;
   table-layout: auto;
 }
 
 .f1-winner {
-    color: $white-text-color;
+    color: $default-text-color;
     background-color: $highlight-background-color;
 }
 

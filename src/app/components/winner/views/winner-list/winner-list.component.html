@@ -1,4 +1,8 @@
 <div class="container">
+
+    <!-- reusable header component-->
+    <app-header> </app-header>
+
     <div class="f1-button-container">
       <a [routerLink]="['/home']">
         <button type="button" class="btn f1-button-normal">
@@ -30,6 +34,7 @@
 
     <!-- Render this screen in this template after getting data successfully from the service -->
     <ng-template #data>
+      <h1> List of Winners </h1>
       <div class="table-responsive">
         <table class="table f1-table">
           <thead class="thead-dark">
@@ -43,7 +48,7 @@
           <tbody>
             <tr *ngFor="let winner of winners">
                 <td [ngClass]="driverId === winner.driver.driverId ? 'f1-winner' : ''">{{ winner.raceName }}</td>
-                <td [ngClass]="driverId === winner.driver.driverId ? 'f1-winner' : ''">{{ winner.driver | driverNamePipe }}</td>
+                <td [ngClass]="driverId === winner.driver.driverId ? 'f1-winner' : ''"><em *ngIf="driverId === winner.driver.driverId" class="fa fa-trophy f1-trophy-icon" pReorderableRowHandle></em>{{ winner.driver | driverNamePipe }}</td>
                 <td [ngClass]="driverId === winner.driver.driverId ? 'f1-winner' : ''"><span>{{ winner.time }}</span></td>
                 <td [ngClass]="driverId === winner.driver.driverId ? 'f1-winner' : ''"><span>{{ winner.laps }} Laps</span></td>
             </tr>

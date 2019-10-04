@@ -1,7 +1,7 @@
 /* Import all styles applicable to entire application.
 *  imports should be in sequential order of dependency to avoid circular dependency issues. 
 *  E.g buttons and all other components require variables, that means variables should be imported
-*  before the other layers that depend on it.
+*  before the other scss styles that depend on it.
 */
 
 /* typography */
@@ -11,6 +11,7 @@
 @import "src/styles/components/button";
 @import "src/styles/components/spinner";
 @import "src/styles/components/table";
+@import "src/styles/components/icons";
 
 /* Configure body style of entire application */
 body {
@@ -20,10 +21,15 @@ body {
   line-height: $line-height;
   letter-spacing: $letter-spacing;
   background: $body-background-color;
-  background-size: 100% auto;
+  background-image: url("src/assets/background/background.jpg");
+  background-size: cover;
   margin-top: 12px;
   margin-bottom: 16px;
   overflow-x: hidden;
+}
+
+h1 {
+ color: $white-text-color;
 }
 
 /* responsive queries */

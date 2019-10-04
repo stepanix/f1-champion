@@ -1,4 +1,9 @@
+
 <div class="container">
+
+  <!-- reusable header component-->
+  <app-header> </app-header>
+
   <!-- Dom elements per screen are wrapped in templates this promotes a clear separation of screens and also easy
        to do conditional rendering
     -->
@@ -18,11 +23,11 @@
   </ng-template>
 
   <ng-template #data>
+    <h1> List of champions</h1>
      <div class="table-responsive">
         <table class="table table-striped f1-table">
           <thead class="thead-dark">
             <tr>
-              <th scope="col"></th>
               <th scope="col">Season</th>
               <th scope="col">Driver</th>
               <th scope="col">Points</th>
@@ -31,8 +36,7 @@
           </thead>
           <tbody>
             <tr *ngFor="let champion of champions">
-                <td><em class="fa fa-flag-checkered" pReorderableRowHandle></em></td>
-                <td>{{ champion.season }}</td>
+                <td><em class="fa fa-flag-checkered f1-flag-icon" pReorderableRowHandle></em>{{ champion.season }}</td>
                 <td>{{ champion.driver | driverNamePipe }}</td>
                 <td>{{ champion.points }}</td>
                 <td>
