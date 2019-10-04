@@ -25,3 +25,17 @@ body {
   margin-bottom: 16px;
   overflow-x: hidden;
 }
+
+/* responsive queries */
+// Small devices (landscape phones, 576px and up)
+@media (max-width: 576px) { 
+    .f1-button-normal-text {
+        display: none;
+    }
+
+    .f1-button-normal {
+       margin: auto;
+       display: inline-flex;
+    }
+}
+

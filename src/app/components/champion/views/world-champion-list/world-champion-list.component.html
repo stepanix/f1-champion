@@ -35,7 +35,14 @@
                 <td>{{ champion.season }}</td>
                 <td>{{ champion.driver | driverNamePipe }}</td>
                 <td>{{ champion.points }}</td>
-                <td><a [routerLink]="['/winners',champion.season, champion.driver.driverId]"><button type="button" class="btn f1-button-normal">View details</button></a></td>
+                <td>
+                  <a [routerLink]="['/winners',champion.season, champion.driver.driverId]">
+                    <button type="button" class="btn f1-button-normal">
+                      <em class="fa fa-eye" pReorderableRowHandle></em>
+                      <span class="f1-button-normal-text">View</span>
+                    </button>
+                  </a>
+              </td>
             </tr>
           </tbody>
         </table>

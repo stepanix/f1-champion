@@ -1,7 +1,10 @@
 <div class="container">
     <div class="f1-button-container">
       <a [routerLink]="['/home']">
-        <button type="button" class="btn f1-button-normal">Back</button>
+        <button type="button" class="btn f1-button-normal">
+          <em class="fa fa-chevron-left" pReorderableRowHandle></em>
+          <span class="f1-button-normal-text">Back</span>
+        </button>
       </a>
     </div>
 
@@ -29,7 +32,7 @@
     <ng-template #data>
       <div class="table-responsive">
         <table class="table f1-table">
-          <thead class="thead-dark f1-table-header">
+          <thead class="thead-dark">
             <tr>
               <th scope="col">Race Name</th>
               <th scope="col">Driver</th>
