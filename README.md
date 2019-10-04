@@ -51,6 +51,14 @@ This layer is used for reusable `components`, `pipes`, `directives`, `etc` withi
 
 In addition to the points above, `loading on demand` or `lazy loading` has also been implemented to ensure optimization, performance and speed in download time when a production artifact is created.
 
+## Styling
+I have created a high specifity in global styles with respect to widgets/components used across the application. Media queries are also included to make the application responsive. Please find below the style structure.
+
+`main.scss`: This is the parent style sheet of the application
+`styles`: This is the root folder of all scss files.
+`abstracts`: This folder is the single source of truth for all variables (colors, font sizes, font family, font weights, etc) are defined
+`components`: This folder is a repository for style definitions of all shared components.
+
 
 
 

@@ -9,7 +9,7 @@
 
 /* components */
 @import "src/styles/components/button";
-@import "src/styles/components/spinner";
+@import "src/styles/components/containers";
 @import "src/styles/components/table";
 @import "src/styles/components/icons";
 
@@ -30,18 +30,5 @@ body {
 
 h1 {
  color: $white-text-color;
-}
-
-/* responsive queries */
-// Small devices (landscape phones, 576px and down)
-@media (max-width: 576px) { 
-    .f1-button-normal-text {
-        display: none;
-    }
-
-    .f1-button-normal {
-       margin: auto;
-       display: inline-flex;
-    }
 }
 

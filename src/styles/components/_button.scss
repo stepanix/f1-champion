@@ -1,7 +1,11 @@
-@import 'src/styles/base/typography';
+
 
 .f1-button-normal {
-  @include f1-button-normal;
+    font-family: $font-family;
+    font-size: $font-size-normal;
+    background-color: $button-background-color;
+    color: $white-text-color;
+    padding: 4px 6px;
 }
 
 .f1-button-container {
@@ -11,4 +15,17 @@
 .f1-button-normal-text {
   display: inline-flex;
   padding-left: 4px;
+}
+
+/* responsive queries */
+// Small devices (landscape phones, 576px and down)
+@media (max-width: 576px) { 
+  .f1-button-normal-text {
+      display: none;
+  }
+
+  .f1-button-normal {
+     margin: auto;
+     display: inline-flex;
+  }
 }
