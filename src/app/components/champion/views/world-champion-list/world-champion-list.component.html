@@ -18,9 +18,9 @@
   </ng-template>
 
   <ng-template #data>
-     <div class="table-responsive" >
-        <table class="table table-bordered f1-table-list">
-          <thead>
+     <div class="table-responsive">
+        <table class="table table-striped f1-table">
+          <thead class="thead-dark">
             <tr>
               <th scope="col"></th>
               <th scope="col">Season</th>
@@ -32,10 +32,10 @@
           <tbody>
             <tr *ngFor="let champion of champions">
                 <td><em class="fa fa-flag-checkered" pReorderableRowHandle></em></td>
-                <td><span class="f1-season-text">{{ champion.season }} </span></td>
-                <td><span class="f1-capitalize">{{ champion.driver | driverNamePipe }} </span> </td>
-                <td><span class="badge badge-light f1-driver-points">points {{ champion.points }}</span> </td>
-                <td><a [routerLink]="['/winners',champion.season, champion.driver.driverId]"><button type="button" class="btn f1-button-details">View Details</button></a></td>
+                <td>{{ champion.season }}</td>
+                <td>{{ champion.driver | driverNamePipe }}</td>
+                <td>{{ champion.points }}</td>
+                <td><a [routerLink]="['/winners',champion.season, champion.driver.driverId]"><button type="button" class="btn f1-button-normal">View details</button></a></td>
             </tr>
           </tbody>
         </table>

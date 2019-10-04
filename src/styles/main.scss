@@ -1,0 +1,27 @@
+/* Import all styles applicable to entire application.
+*  imports should be in sequential order of dependency to avoid circular dependency issues. 
+*  E.g buttons and all other components require variables, that means variables should be imported
+*  before the other layers that depend on it.
+*/
+
+/* typography */
+@import "src/styles/abstracts/variables";
+
+/* components */
+@import "src/styles/components/button";
+@import "src/styles/components/spinner";
+@import "src/styles/components/table";
+
+/* Configure body style of entire application */
+body {
+  font-size: $font-size-normal;
+  color: $default-text-color;
+  font-family: $font-family;
+  line-height: $line-height;
+  letter-spacing: $letter-spacing;
+  background: $body-background-color;
+  background-size: 100% auto;
+  margin-top: 12px;
+  margin-bottom: 16px;
+  overflow-x: hidden;
+}

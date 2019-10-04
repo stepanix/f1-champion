@@ -1,0 +1,10 @@
+@import 'src/styles/base/typography';
+
+.f1-button-normal {
+  @include f1-button-normal;
+}
+
+.f1-button-container {
+  margin-top: 16px;
+  margin-bottom: 12px;
+}

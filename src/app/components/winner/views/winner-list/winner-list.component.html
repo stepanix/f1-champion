@@ -1,7 +1,7 @@
 <div class="container">
-    <div class="f1-back-button">
+    <div class="f1-button-container">
       <a [routerLink]="['/home']">
-        <button type="button" class="btn f1-button-details">Back</button>
+        <button type="button" class="btn f1-button-normal">Back</button>
       </a>
     </div>
 
@@ -28,8 +28,8 @@
     <!-- Render this screen in this template after getting data successfully from the service -->
     <ng-template #data>
       <div class="table-responsive">
-        <table class="table table-bordered f1-table-list">
-          <thead>
+        <table class="table f1-table">
+          <thead class="thead-dark f1-table-header">
             <tr>
               <th scope="col">Race Name</th>
               <th scope="col">Driver</th>
@@ -39,8 +39,8 @@
           </thead>
           <tbody>
             <tr *ngFor="let winner of winners">
-                <td [ngClass]="driverId === winner.driver.driverId ? 'f1-winner' : ''"><span>{{ winner.raceName }}</span></td>
-                <td [ngClass]="driverId === winner.driver.driverId ? 'f1-winner' : ''"><span class="f1-capitalize">{{ winner.driver | driverNamePipe }}</span></td>
+                <td [ngClass]="driverId === winner.driver.driverId ? 'f1-winner' : ''">{{ winner.raceName }}</td>
+                <td [ngClass]="driverId === winner.driver.driverId ? 'f1-winner' : ''">{{ winner.driver | driverNamePipe }}</td>
                 <td [ngClass]="driverId === winner.driver.driverId ? 'f1-winner' : ''"><span>{{ winner.time }}</span></td>
                 <td [ngClass]="driverId === winner.driver.driverId ? 'f1-winner' : ''"><span>{{ winner.laps }} Laps</span></td>
             </tr>
